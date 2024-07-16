@@ -1,3 +1,21 @@
+const btnRock = document.getElementById("rock");
+const btnPaper = document.getElementById("paper");
+const btnScissors = document.getElementById("scissors");
+const status = document.getElementById("status");
+const scores = [0, 0];
+
+btnRock.addEventListener("click", () =>
+  playRound("Rock", getComputerChoice(), scores)
+);
+
+btnPaper.addEventListener("click", () =>
+  playRound("Paper", getComputerChoice(), scores)
+);
+
+btnScissors.addEventListener("click", () =>
+  playRound("Scissors", getComputerChoice(), scores)
+);
+
 function getComputerChoice() {
   const computerChoice = ["Rock", "Paper", "Scissors"];
 
@@ -24,9 +42,7 @@ function getHumanChoice() {
 
 function playRound(humanChoice, computerChoice, scores) {
   if (humanChoice === computerChoice) {
-    return console.log(
-      `Draw! you choose ${humanChoice} and computer choose ${computerChoice}`
-    );
+    return (status.textContent = `Draw! you choose ${humanChoice} and computer choose ${computerChoice}`);
   }
 
   const choices = [humanChoice, computerChoice];
@@ -60,6 +76,7 @@ function playRound(humanChoice, computerChoice, scores) {
         default:
           break;
       }
+      break;
 
     case "Scissors":
       switch (computerChoice) {
@@ -74,6 +91,7 @@ function playRound(humanChoice, computerChoice, scores) {
         default:
           break;
       }
+      break;
 
     default:
       break;
@@ -96,33 +114,15 @@ function toCapitalCase(word) {
 }
 
 function getResult(win, choices, scores) {
+  const score = document.getElementById("score");
+
   if (win) {
     scores[0]++;
-    console.log(`You win! ${choices[0]} beats ${choices[1]}`);
+    status.textContent = `You win! ${choices[0]} beats ${choices[1]}`;
+    score.textContent = `Your score: ${scores[0]}\n Computer score: ${scores[1]}`;
   } else {
     scores[1]++;
-    console.log(`You lose! ${choices[1]} beats ${choices[0]}`);
+    status.textContent = `You lose! ${choices[1]} beats ${choices[0]}`;
+    score.textContent = `Your score: ${scores[0]}\n Computer score: ${scores[1]}`;
   }
 }
-
-function playGame() {
-  let humanScore = 0;
-  let computerScore = 0;
-
-  const scores = [humanScore, computerScore];
-
-  for (let i = 1; i <= 5; i++) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-
-    playRound(humanSelection, computerSelection, scores);
-  }
-
-  humanScore = scores[0];
-  computerScore = scores[1];
-
-  console.log("humanScore", humanScore);
-  console.log("computerScore", computerScore);
-}
-
-playGame();
