@@ -4,9 +4,15 @@ const btnScissors = document.getElementById("scissors");
 const status = document.getElementById("status");
 const scores = [0, 0];
 
-btnRock.addEventListener("click", () =>
-  playRound("Rock", getComputerChoice(), scores)
-);
+btnRock.addEventListener("click", () => {
+  if (scores[0] === 5)
+    return (status.textContent = `You win against computer yay!`);
+
+  if (scores[1] === 5)
+    return (status.textContent = `You lose against computer!`);
+
+  playRound("Rock", getComputerChoice(), scores);
+});
 
 btnPaper.addEventListener("click", () =>
   playRound("Paper", getComputerChoice(), scores)
@@ -125,4 +131,10 @@ function getResult(win, choices, scores) {
     status.textContent = `You lose! ${choices[1]} beats ${choices[0]}`;
     score.textContent = `Your score: ${scores[0]}\n Computer score: ${scores[1]}`;
   }
+
+  if (scores[0] === 5)
+    return (status.textContent = `You win against computer yay!`);
+
+  if (scores[1] === 5)
+    return (status.textContent = `You lose against computer!`);
 }
